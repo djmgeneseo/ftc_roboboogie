@@ -54,9 +54,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-    @Autonomous(name="Thronebot: Autonomous", group="Throne")
+    @Autonomous(name="Thronebot: Auto Red(Left)", group="Thronebot")
 
-    public class ThronebotAuto extends LinearOpMode {
+    public class ThronebotAutoRedLeft extends LinearOpMode {
 
         /* Declare OpMode members. */
         org.firstinspires.ftc.teamcode.HardwareThronebot robot   = new org.firstinspires.ftc.teamcode.HardwareThronebot();   // Use a Pushbot's hardware

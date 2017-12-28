@@ -95,7 +95,6 @@ public class HardwareThronebot
         clawLeft.setDirection(Servo.Direction.FORWARD);
         clawRight.setDirection(Servo.Direction.REVERSE);
 
-
         // Set all motors to zero power
         frontLeft.setPower(0);
         frontRight.setPower(0);
@@ -110,4 +109,3 @@ public class HardwareThronebot
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
  }
-
