@@ -57,9 +57,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Thronebot: Auto Blue(Left)", group="Thronebot")
+@Autonomous(name="Thronebot: TimeAuto(BlueRight)", group="Thronebot")
 
-public class ThronebotAutoBlueLeft extends LinearOpMode {
+public class TimeAutoBlueRight extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -85,6 +85,7 @@ public class ThronebotAutoBlueLeft extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // START HERE
+        // START HERE. LEFT IS CLOSEST
+
     }
 }

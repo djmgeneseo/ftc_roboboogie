@@ -54,9 +54,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-    @Autonomous(name="Thronebot: Auto Red(Left)", group="Thronebot")
+    @Autonomous(name="Thronebot: TimeAuto(RedLeft)", group="Thronebot")
 
-    public class ThronebotAutoRedLeft extends LinearOpMode {
+    public class TimeAutoRedLeft extends LinearOpMode {
 
         /* Declare OpMode members. */
         org.firstinspires.ftc.teamcode.HardwareThronebot robot   = new org.firstinspires.ftc.teamcode.HardwareThronebot();   // Use a Pushbot's hardware
@@ -82,7 +82,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // INITIAL
+        // START HERE: RIGHT IS CLOSEST
         robot.frontLeft.setPower(0);
         robot.backLeft.setPower(0);
         robot.frontRight.setPower(0);
@@ -93,7 +93,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
         robot.frontRight.setPower(1);
         robot.backRight.setPower(1);
         runtime.reset();
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
         // Step 1:  Drive forward for 1 seconds
         while(runtime.seconds() <1) {
