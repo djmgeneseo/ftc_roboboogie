@@ -56,16 +56,25 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 public class HardwareThronebot
 {
     /* Public OpMode members. */
+    // Wheels
     public DcMotor  frontLeft   = null;
     public DcMotor  backLeft  = null;
     public DcMotor  frontRight  =  null;
     public DcMotor  backRight  =  null;
 
+    // Glyphs
     public DcMotor lift = null;
     public Servo clawLeft = null;
     public Servo clawRight = null;
-
     public ColorSensor colorSensor = null;
+
+    // Relic Arm
+    public DcMotor  armMotor = null;
+    public Servo armServo1 = null;
+    public Servo armServo2 = null;
+
+    // Jewel Arm
+    public Servo jewelServo = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -82,14 +91,27 @@ public class HardwareThronebot
         hwMap = ahwMap;
 
         // Define and Initialize Motors
+
+        // Wheels
         frontLeft  = hwMap.get(DcMotor.class, "frontLeft");
         backLeft = hwMap.get(DcMotor.class, "backLeft");
         frontRight = hwMap.get(DcMotor.class, "frontRight");
         backRight = hwMap.get(DcMotor.class, "backRight");
+
+        // Glyph
         lift = hwMap.get(DcMotor.class, "lift");
         clawLeft = hwMap.get(Servo.class, "clawLeft");
         clawRight = hwMap.get(Servo.class, "clawRight");
-        colorSensor = hwMap.get(ColorSensor.class, "color");
+
+        // Relic Arm: motor, two servos
+//        armMotor = hwMap.get(DcMotor.class, "armMotor");
+//        armServo1 = hwMap.get(Servo.class, "armServo1");
+//        armServo2 = hwMap.get(Servo.class, "armServo2");
+
+        // Jewel Arm
+//        jewelServo = hwMap.get(Servo.class, "jewelServo");
+        colorSensor = hwMap.get(ColorSensor.class, "colorSensor");
+
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -100,10 +122,17 @@ public class HardwareThronebot
         clawRight.setDirection(Servo.Direction.REVERSE);
 
         // Set all motors to zero power
+        // wheels
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
+
+        // Glyphs
+        lift.setPower(0);
+
+        // Arm
+        armMotor.setPower(0);
 
         // Set all motors to run with encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -111,5 +140,6 @@ public class HardwareThronebot
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
  }

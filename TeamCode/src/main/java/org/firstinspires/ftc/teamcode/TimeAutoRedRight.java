@@ -58,7 +58,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @Autonomous(name="Thronebot: TimeAuto(RedRight)", group="Thronebot")
-
+@Disabled
 public class TimeAutoRedRight extends LinearOpMode {
 
     /* Declare OpMode members. */

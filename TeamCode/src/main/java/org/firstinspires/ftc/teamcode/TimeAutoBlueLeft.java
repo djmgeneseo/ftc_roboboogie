@@ -31,6 +31,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
@@ -64,8 +66,9 @@ public class TimeAutoBlueLeft extends LinearOpMode {
     /* Declare OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
-    ColorSensor color_sensor;
 
+    // hardware
+    ColorSensor colorSensor;
 
     static final double     FORWARD_SPEED = 0.6;
     static final double     TURN_SPEED    = 0.5;
@@ -80,8 +83,10 @@ public class TimeAutoBlueLeft extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
+
+        // Hardware
         robot.init(hardwareMap);
-        color_sensor = hardwareMap.colorSensor.get("color");
+        colorSensor = hardwareMap.colorSensor.get("color");
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
@@ -94,25 +99,39 @@ public class TimeAutoBlueLeft extends LinearOpMode {
         runtime.reset();
 
         /*  ***********************************************
+        *   GRAB THE GLYPH
+        *   ***********************************************
+        */
+
+        /*
+        while(runtime.seconds() <= 5) {
+            // NOT SURE IF THIS WILL CLOSE OR OPEN
+        }
+        */
+
+        /*  ***********************************************
         *   READ COLOR OF RELICS: ***TEST FOR VALUES OF RED AND BLUE***
         *   For x seconds
         *   ***********************************************
         */
-        while(runtime.seconds() <= x) {
+        colorSensor.enableLed(true);
+        while(runtime.seconds() <= 10) {
             telemetry.addData("TIME: ", runtime.seconds());
-            telemetry.addData("Red: ", color_sensor.red());
-            telemetry.addData("Blue: ", color_sensor.blue());
+            telemetry.addData("Red: ", colorSensor.red());
+            telemetry.addData("Blue: ", colorSensor.blue());
             telemetry.update();
 
-            color_sensor.enableLed(true);
+
             // color_sensor.enableLed(false);
         } // Runtime: xs
+        colorSensor.enableLed(false);
 
         /*  ***********************************************
         *   LOWER ARM
         *   For x seconds
         *   ***********************************************
         */
+        /*
         while(runtime.seconds() <= x) {
             telemetry.addData("TIME: ", runtime.seconds());
             telemetry.update();
@@ -124,6 +143,7 @@ public class TimeAutoBlueLeft extends LinearOpMode {
             // Robot arm swipes left or right ***TEST FOR VALUES OF RED AND BLUE***
 
         } // Runtime: xs
+        */
 
         /*  ***********************************************
         *   MOVE TOWARDS RELICS ???????
@@ -137,6 +157,8 @@ public class TimeAutoBlueLeft extends LinearOpMode {
         *   For x seconds
         *   ***********************************************
         */
+
+        /*
         while(runtime.seconds() <= x) {
             telemetry.addData("TIME: ", runtime.seconds());
             telemetry.update();
@@ -148,12 +170,14 @@ public class TimeAutoBlueLeft extends LinearOpMode {
             // Robot arm swipes left or right ***TEST FOR VALUES OF RED AND BLUE***
 
         } // Runtime: xs
+        */
 
         /*  ***********************************************
         *   NUDGE RELIC
         *   For x seconds
         *   ***********************************************
         */
+        /*
         while() {
             // BLUETEAM: NUDGE RED RELIC. ASSUME ONLY SCANNING LEFT RELIC
             if (color_sensor.red() > 20) {
@@ -162,13 +186,14 @@ public class TimeAutoBlueLeft extends LinearOpMode {
                 // move entire robot forward to nudge red ball
             }
         }
-
+*/
         /*  ***********************************************
         *   MOVE TO CRYPTOBOX, DEPENDING ON WHAT CAMERA READS
         *   ***********************************************
         */
         // DEPENDING ON WHAT THE CAMERA READS FROM PICTOGRAPH:
         // Move to first column, turn if necessary, place down glyph
+        /*
         if (camera reads left){
             // 2 seconds
             while (runtime.seconds() <= x) {
@@ -215,6 +240,7 @@ public class TimeAutoBlueLeft extends LinearOpMode {
 
             // while to place glyph down
         }
+        */
 
     }
 }

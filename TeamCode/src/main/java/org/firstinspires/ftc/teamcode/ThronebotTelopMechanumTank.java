@@ -56,6 +56,9 @@ public class ThronebotTelopMechanumTank extends OpMode{
     /* Declare OpMode members. */
     org.firstinspires.ftc.teamcode.HardwareThronebot robot = new org.firstinspires.ftc.teamcode.HardwareThronebot(); // use the class created to define a Pushbot's hardware
 
+    public boolean g1xSlowSwitch = false;
+    public boolean g2xSwitch = true;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -93,86 +96,124 @@ public class ThronebotTelopMechanumTank extends OpMode{
      */
     @Override
     public void loop() {
-        // Controller 1
-        double leftStick;
-        double rightStick;
-        double leftTrigger;
-        double rightTrigger;
 
-        // Controller 2
-        double leftStick2;
-        boolean clawSwitch = false;
-        boolean buttonB2 = false;
+        /************************
+         * CONTROLLER 1
+         *  left stick(y) = left-side wheels
+         *  right stick(y) = right-side wheels
+         *  left trigger = strafe left
+         *  right trigger = strafe right
+         *  ***********************
+         */
 
-        // CONTROLLER 1: Assign variables to stick and trigger
-        // leftstick, rightstick, lefttrigger, righttrigger without numbers is for controller one
-        leftStick= gamepad1.left_stick_y * .25;
-        rightStick = gamepad1.right_stick_y * .25;
-        leftTrigger = gamepad1.left_trigger * .25;
-        rightTrigger = gamepad1.right_trigger * .25;
+        double g1leftStick;
+        double g1rightStick;
+        double g1leftTrigger;
+        double g1rightTrigger;
 
-        // CONTROLLER 2: Assign variables to stick, triggers, and button
-        leftStick2 = gamepad2.left_stick_y;
-        // servo switch (toggle)
+        if(!g1xSlowSwitch) {
+            g1leftStick = gamepad1.left_stick_y * .20;
+            g1rightStick = gamepad1.right_stick_y * .20;
+            g1leftTrigger = gamepad1.left_trigger * .20;
+            g1rightTrigger = gamepad1.right_trigger * .20;
+        } else {
+            g1leftStick = gamepad1.left_stick_y * .05;
+            g1rightStick = gamepad1.right_stick_y * .05;
+            g1leftTrigger = gamepad1.left_trigger * .05;
+            g1rightTrigger = gamepad1.right_trigger * .05;
+        }
+        boolean g1x = gamepad1.x;
 
 
+        /************************
+         * CONTROLLER 2
+         *  left stick(y) = move the lift
+         *  x button = open/close glyph claws
+         ************************
+         */
 
-        // kill switch
-        buttonB2 = gamepad2.b;
-
+        double g2leftStick2 = gamepad2.left_stick_y;
+        boolean g2x = gamepad2.x;
 
         // display statements
-        telemetry.addData("LEFT STICK VALUE: ",leftStick);
-        telemetry.addData("RIGHT STICK VALUE: ",rightStick);
-        telemetry.addData("LEFT TRIGGER POWER: ",leftTrigger);
-        telemetry.addData("RIGHT TRIGGER POWER: ",rightTrigger);
+        telemetry.addData("LEFT STICK VALUE: ",g1leftStick);
+        telemetry.addData("RIGHT STICK VALUE: ",g1rightStick);
+        telemetry.addData("LEFT TRIGGER POWER: ",g1leftTrigger);
+        telemetry.addData("RIGHT TRIGGER POWER: ",g1rightTrigger);
+        telemetry.update();
 
-        // If the triggers are being pushed
-        if(leftTrigger > 0 || rightTrigger > 0) {
-            if (leftTrigger > 0) {
-                robot.frontLeft.setPower(-leftTrigger);
-                robot.backLeft.setPower(leftTrigger);
-                robot.frontRight.setPower(leftTrigger);
-                robot.backRight.setPower(-leftTrigger);
-            } else if (rightTrigger > 0) {
-                robot.frontLeft.setPower(rightTrigger);
-                robot.backLeft.setPower(-rightTrigger);
-                robot.frontRight.setPower(-rightTrigger);
-                robot.backRight.setPower(rightTrigger);
+        /************************
+         *  CONTROLLER 1 - LOGIC
+         ************************
+         */
+
+        // SLOW-DOWN TOGGLE with 'x'
+        if(g1x) {
+            g1xSlowSwitch = !g1xSlowSwitch;
+        }
+
+        // TRIGGERS AND STICKS
+        // If the triggers are being pushed, cannot use sticks
+        if(g1leftTrigger > 0 || g1rightTrigger > 0) {
+            if (g1leftTrigger > 0) {
+                // strafe left
+                robot.frontLeft.setPower(-g1leftTrigger);
+                robot.backLeft.setPower(g1leftTrigger);
+                robot.frontRight.setPower(g1leftTrigger);
+                robot.backRight.setPower(-g1leftTrigger);
+            } else if (g1rightTrigger > 0) {
+                // strafe right
+                robot.frontLeft.setPower(g1rightTrigger);
+                robot.backLeft.setPower(-g1rightTrigger);
+                robot.frontRight.setPower(-g1rightTrigger);
+                robot.backRight.setPower(g1rightTrigger);
             }
         } else {
             // movement with sticks
-            robot.frontLeft.setPower(leftStick);
-            robot.backLeft.setPower(leftStick);
-            robot.backRight.setPower(rightStick);
-            robot.frontRight.setPower(rightStick);
+            robot.frontLeft.setPower(g1leftStick);
+            robot.backLeft.setPower(g1leftStick);
+            robot.backRight.setPower(g1rightStick);
+            robot.frontRight.setPower(g1rightStick);
         }
 
-        //Controller 2 Code:
-        if (leftStick2 > 0 ){
-            robot.lift.setPower(leftStick2);
-            // If left stick is not being moved
-        } else if(leftStick2 == 0){
-            // Claw toggle logic
-            if ( clawSwitch == false && gamepad2.a == false){
-                robot.clawLeft.setPosition(0);
-                robot.clawRight.setPosition(0);
-            } else if ( clawSwitch == false && gamepad2.a == true){
-                clawSwitch = true;
-                robot.clawLeft.setPosition(.6);
-                robot.clawRight.setPosition(.6);
-            } else if ( clawSwitch == true && gamepad2.a == false){
-                robot.clawLeft.setPosition(.6);
-                robot.clawRight.setPosition(.6);
-            } else if (clawSwitch == true && gamepad2.a == true){
-                clawSwitch = false;
-                robot.clawLeft.setPosition(0);
-                robot.clawRight.setPosition(0);
+
+        /************************
+         *  CONTROLLER 2 - LOGIC
+         ************************
+         */
+        // LEFT STICK
+        if (g2leftStick2 > 0 ){
+            robot.lift.setPower(g2leftStick2);
+        } else if (g2leftStick2 < 0){
+            robot.lift.setPower(g2leftStick2);
+        }
+        else {
+            // If left stick(y) is not being moved
+            robot.lift.setPower(0);
+        }
+
+        // X BUTTON
+        while(g2x) {
+            if(g2xSwitch) {
+                while (g2x) {
+                    // is 1 open or close????
+                    robot.clawRight.setPosition(1);
+                    robot.clawLeft.setPosition(0);
+                }
+                robot.clawRight.setPosition(robot.clawRight.getPosition());
+                robot.clawLeft.setPosition(robot.clawLeft.getPosition());
+                g2xSwitch = !g2xSwitch;
+            } else {
+                while (g2x) {
+                    robot.clawLeft.setPosition(0);
+                    robot.clawRight.setPosition(1);
+                }
+                robot.clawRight.setPosition(robot.clawRight.getPosition());
+                robot.clawLeft.setPosition(robot.clawLeft.getPosition());
+                g2xSwitch = !g2xSwitch;
             }
-            //End of claw toggle logic
         }
-
-    }
+    } // LOOP
 
     /*
      * Code to run ONCE after the driver hits STOP

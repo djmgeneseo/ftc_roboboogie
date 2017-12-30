@@ -1,3 +1,28 @@
+Relic Arm:
+- Continuous servo
+    - 180 degrees servo
+
+Jewel Arm:
+- 180 degrees Servo
+
+Controller 1:
+- 'x' button gamepad 1 = slow down motors
+
+Controller 2:
+- 'x' button gamepad 2 = open and close claw servos
+- 'left stick' gamepad 2 = raise and lower lift
+////////////////////////////////////////////////////////////////////////////
+
+180 degree servo:
+// move to 0 degrees.
+        servoTest.setPosition(0);
+
+// move to 90 degrees.
+        servoTest.setPosition(0.5);
+
+// move to 180 degrees.
+        servoTest.setPosition(1);
+
 PHONE CAMERA MUST ALWAYS ORIENT TOWARDS THE LEFT-HAND SIDE OF THE JEWEL SET TO READ THE PICTOGRAPH;
 I.E, IT SHOULD BE POSITIONED ON THE LEFT-HAND SIDE OF YOUR ROBOT'S ARM
 
